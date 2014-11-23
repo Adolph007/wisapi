@@ -1,9 +1,0 @@
-*/node-log.log
-*.log
-!logs/
-!.gitignore
-node_modules/*
-.idea/*
-
-
-.idea/workspace.xml
