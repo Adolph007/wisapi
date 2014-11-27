@@ -8,7 +8,7 @@ var util = require("util"),
     status = require('../status'),
     _ = require("lodash");
 
-function PaperApi(){
+function AdminApi(){
 
 };
 
@@ -38,21 +38,21 @@ function parseForm(req, cb){
     });
 };
 
-PaperApi.prototype.add = function(req, res, next){
+AdminApi.prototype.addpaper = function(req, res, next){
     var _this = this;
     console.log("add ....");
     parseForm(req, function(title, opts, questions, rv, u, v, dims){
 	data.paper.addPaper(title, opts, rv,u,v,dims, questions, function(err, paper){
 	    if(err){
-		res.status(200).json({code:status.error.addpaper});
+		res.status(404);
 	    }else{
-		res.status(200).json({code:status.ok, data:paper});
+		res.redirect('/console/listpaper');
 	    }
 	});
     });
 };
 
-PaperApi.prototype.list = function(req, res, next){
+AdminApi.prototype.listpaper = function(req, res, next){
     var _this = this;
     data.paper.getPapers(function(err, data){
 	logger.info("paper list: %s", util.inspect(data));
@@ -60,4 +60,4 @@ PaperApi.prototype.list = function(req, res, next){
     });
 };
 
-exports.PaperApi = PaperApi;
+exports.AdminApi = AdminApi;

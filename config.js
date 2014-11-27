@@ -4,6 +4,8 @@ exports.Config = {
     config : {
 	env: 'test',
 	mongodb_server: 'mongodb://sjh/wisdom',
+	redis_server: 'sjh',
+	redis_port: 6379,
 	region : 'cn-north-1',
 	tmpdir : '/Users/haoliu/tmp/',
 	bucket_thumb : 'thumb',

@@ -3,6 +3,7 @@
 var mongoose = require('mongoose'),
     config = require('../config.js').Config,
     connectTimes = 0,
+    UserData = require("./user").UserData;
     PaperData = require("./paper").PaperData;
 
 
@@ -42,6 +43,7 @@ process.on('SIGINT', function () {
 });
 
 module.exports = {
-    paper      : new PaperData()
+    paper      : new PaperData(),
+    user      : new UserData()
 };
 exports = module.exports;

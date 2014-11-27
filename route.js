@@ -1,6 +1,8 @@
 /*global module,require*/
  // var controller = require("./controller"),
 var api = require("./api"),
+    config = require("./config").Config,
+    logger = require('./logger')(config.get('env'), config.get('logger'));
     box = require("./core"),
     util = require("util");
 
@@ -11,7 +13,12 @@ exports = module.exports = function (app) {
     app.post('/box/upload', box.upload);
     app.get('/box/:fid', box.getFile);
     app.get('/box/thumb/:fid', box.getThumb);
+    app.post('/admin/paper', api.admin.addpaper);
+    app.get('/admin/papers', api.admin.listpaper);
     app.post('/api/paper', api.paper.add);
+    app.get('/api/papers', api.paper.list);
+    app.post('/api/regcode', api.user.genvcode);
+    app.post('/api/register', api.user.register);
     // Error handler
     app.use(errorHandler);
 
@@ -63,20 +70,19 @@ exports = module.exports = function (app) {
         }
         var reqInfo = {date: nowDate, method: req.method, url: req.url, data: data, ip: req.ip, statusCode: res.statusCode, referer: referer, oid: req.context.oid, client: client, ua: ua};
         reqInfo.uid = req.user ? req.user.uid : "unknown";
-        core.logger.info(reqInfo);
+        logger.info(reqInfo);
         next();
     };
 
     function errorHandler(error, req, res, next) {
         if (error && 'number' !== typeof error) {
-	    console.log("error: " + error);
-            core.logger.error(error, {oid: req.context.oid});
+	    logger.error("error: %s", error);
         }
         if (req.url.indexOf("/api") >= 0) {
             if (error && error.code) {
                 return res.send({code: error.code});
             } else if ('number' === typeof error) {
-                core.logger.error("response code is " + error, {oid: req.context.oid});
+                logger.error("response code is %s",  error);
                 return res.send({code: error});
             } else {
                 return res.send({code: 500});
