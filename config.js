@@ -7,14 +7,14 @@ exports.Config = {
 	redis_server: 'sjh',
 	redis_port: 6379,
 	region : 'cn-north-1',
-	tmpdir : '/Users/haoliu/tmp/',
+	tmpdir : '/var/boxtmp/',
 	bucket_thumb : 'thumb',
 	bucket_statics : 'statics', 
 	bucket_lesschat : 'lctmp',
 	logger         : {
 	    level  : "info",
-	    filename: "lc_box.log",
-            dirname: "/Users/haoliu/tmp/log/", // e.g. /mnt/wtlog/nodejs/web
+	    filename: "box.log",
+            dirname: "/var/log/box/", // e.g. /mnt/wtlog/nodejs/web
             maxsize: 1024 * 1024 * 10
 	},
 	convertcmd : 'convert'

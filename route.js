@@ -20,6 +20,7 @@ exports = module.exports = function (app) {
     app.get('/api/papers', api.paper.list);
     app.post('/api/regcode', api.user.genvcode);
     app.post('/api/register', api.user.register);
+    app.get('/api/sigin', api.user.sigin);
     app.post('/api/user/babyinfo', api.user.createuser);
     app.get('/api/location/city', api.location.getCity);
     // Error handler
