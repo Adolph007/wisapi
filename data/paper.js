@@ -15,6 +15,7 @@ PaperData.prototype.addPaper = function(title, opts, rv, u, v, dimensions, qs, c
 	});
 	return result;
     }, []);
+    console.log("dims: " + util.inspect(dims));
     var paper = new this.model({
 	title: title,
 	opts: opts,
@@ -38,5 +39,14 @@ PaperData.prototype.getPapers = function(callback){
     });
 };
 
+
+PaperData.prototype.getPaper = function(paperId, callback){
+    var _this = this;
+    var criteria = {'_id': paperId};
+
+    this.model.findOne(criteria, function(err, paper){
+	callback(err, paper);
+    });
+};
 
 exports.PaperData = PaperData;

@@ -16,6 +16,25 @@ function UserApi(){
 
 };
 
+UserApi.prototype.createuser = function(req, res, next){
+    var nick = req.body.nick;
+    var sex = req.body.sex;
+    var born = req.body.born;
+    var height = req.body.height;
+    var weight = req.body.weight;
+    var city = req.body.city;
+    var rel = req.body.relation;
+    var degree = req.body.degree;
+    var uid = uuid.v4();
+    data.user.addBaby(uid, nick, sex, born, height, weight, city, rel, degree, function(err, result){
+	if(err){
+	    res.status(200).json({code:1001});
+	}else{
+	    res.status(200).json({code:0, data:result});
+	}
+    });
+};
+
 UserApi.prototype.register = function(req, res, next){
     console.log("phone:" + req.body.phone);
     var phone = req.body.phone;
@@ -28,7 +47,8 @@ UserApi.prototype.register = function(req, res, next){
 	    if(!code && code.trim().length ==4 && code == vcode ){
 		shasum.update(pwd); 
 		var d = shasum.digest('hex');
-		data.user.add(phone, d, function(err, result){
+		var uid = uuid.v4();
+		data.user.add(phone, d, uid,  function(err, result){
 		    if(err){
 			res.status(200).json({code:1001});
 		    }else{
@@ -66,7 +86,15 @@ UserApi.prototype.sigin = function(req, res, next){
 		res.status(200).json({code:1001});
 	    }else{
 		if(pwd == result.pwd){
-		    res.status(200).json({code:0, data:result});
+		    var sid = uuid.v4();
+		    redis.set("sid:" + sid, result.uid, function(err){
+			if(err){
+			    res.status(200).json({code:1001});
+			}else{
+			    result.token = sid;
+			    res.status(200).json({code:0, data:result});
+			}
+		    });
 		    return;
 		}
 		res.status(200).json({code:417});

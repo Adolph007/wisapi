@@ -16,9 +16,12 @@ exports = module.exports = function (app) {
     app.post('/admin/paper', api.admin.addpaper);
     app.get('/admin/papers', api.admin.listpaper);
     app.post('/api/paper', api.paper.add);
+    app.get('/api/paper/:id', api.paper.getPaper);
     app.get('/api/papers', api.paper.list);
     app.post('/api/regcode', api.user.genvcode);
     app.post('/api/register', api.user.register);
+    app.post('/api/user/babyinfo', api.user.createuser);
+    app.get('/api/location/city', api.location.getCity);
     // Error handler
     app.use(errorHandler);
 

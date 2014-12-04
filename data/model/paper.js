@@ -2,14 +2,16 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     _ = require("lodash");
 
+var Dim = {
+	name  : {type: String},
+	exp   : {type: String}
+    };
+
 var PaperSchema = new Schema({
     title     : {type: String },
     opts      : [String],
     qs        : [String],
-    dims      : [{
-	name  : {type: String},
-	exp   : {tyep: String}
-    }],
+    dims      : [Dim],
     u         : {type: Number, default: 1}, 
     v         : {type: Number, default: 1}, 
     rv        : {type: Number, default: 5},

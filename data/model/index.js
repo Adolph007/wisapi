@@ -1,5 +1,6 @@
 
 exports = module.exports = {
     paper      : require("./paper"),
-    user       : require("./user")
+    user       : require("./user"),
+    answer     : require("./answer")
 };
