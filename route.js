@@ -14,6 +14,7 @@ exports = module.exports = function (app) {
     app.get('/box/:fid', box.getFile);
     app.get('/box/thumb/:fid', box.getThumb);
     app.post('/admin/paper', api.admin.addpaper);
+    app.post('/api/msg', api.message.add);
     app.get('/admin/papers', api.admin.listpaper);
     app.post('/api/paper', api.paper.add);
     app.get('/api/paper/:id', api.paper.getPaper);
